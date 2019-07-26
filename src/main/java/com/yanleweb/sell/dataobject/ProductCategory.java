@@ -1,6 +1,9 @@
 package com.yanleweb.sell.dataobject;
 
 
+import lombok.Data;
+import org.hibernate.annotations.DynamicUpdate;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -9,6 +12,8 @@ import javax.persistence.Id;
  * 如果类名和表明不一致， 可以用注解@Table(name = "")
  */
 @Entity
+@Data
+@DynamicUpdate
 public class ProductCategory {
     @Id
     @GeneratedValue
@@ -22,23 +27,11 @@ public class ProductCategory {
         return categoryId;
     }
 
-    public void setCategoryId(Integer categoryId) {
-        this.categoryId = categoryId;
+    public ProductCategory() {
     }
 
-    public String getCategoryName() {
-        return categoryName;
-    }
-
-    public void setCategoryName(String categoryName) {
+    public ProductCategory(String categoryName, Integer categoryType) {
         this.categoryName = categoryName;
-    }
-
-    public Integer getCategoryType() {
-        return categoryType;
-    }
-
-    public void setCategoryType(Integer categoryType) {
         this.categoryType = categoryType;
     }
 }

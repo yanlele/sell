@@ -1,0 +1,8 @@
+2019-07-26 08:15:48.233  INFO 3736 --- [main] com.yanleweb.sell.LoggerTest             : Starting LoggerTest on yanyuedeMacBook-Air.local with PID 3736 (started by yanle in /Users/yanle/web相关/java/sell)
+2019-07-26 08:15:48.240  INFO 3736 --- [main] com.yanleweb.sell.LoggerTest             : No active profile set, falling back to default profiles: default
+2019-07-26 08:15:51.584  INFO 3736 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2019-07-26 08:15:52.016  INFO 3736 --- [main] com.yanleweb.sell.LoggerTest             : Started LoggerTest in 5.006 seconds (JVM running for 7.446)
+2019-07-26 08:15:52.292  INFO 3736 --- [main] com.yanleweb.sell.LoggerTest             : name: yanle, password: yanle123
+2019-07-26 08:15:52.294  INFO 3736 --- [main] com.yanleweb.sell.LoggerTest             : info...
+2019-07-26 08:15:52.294 ERROR 3736 --- [main] com.yanleweb.sell.LoggerTest             : error
+2019-07-26 08:15:52.305  INFO 3736 --- [Thread-2] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'

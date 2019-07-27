@@ -43,8 +43,8 @@ public class ProductServiceImplTest {
     @Test
     public void save() throws Exception {
         ProductInfo productInfo = new ProductInfo();
-        productInfo.setProductId("1234522");
-        productInfo.setProductName("皮皮虾22");
+        productInfo.setProductId("1234523");
+        productInfo.setProductName("皮皮虾33");
         productInfo.setProductPrice(new BigDecimal(3.2));
         productInfo.setProductStock(100);
         productInfo.setProductDescription("很好吃的虾");

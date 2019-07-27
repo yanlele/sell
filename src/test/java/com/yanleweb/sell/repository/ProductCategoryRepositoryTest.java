@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import javax.transaction.Transactional;
+
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class ProductCategoryRepositoryTest {
@@ -23,8 +25,11 @@ public class ProductCategoryRepositoryTest {
     }
 
     @Test
+    @Transactional
     public void findOneTest() {
         ProductCategory productCategory = repository.findById(1).get();
         System.out.println(productCategory.toString());
     }
+
+
 }

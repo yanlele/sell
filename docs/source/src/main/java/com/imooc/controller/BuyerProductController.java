@@ -35,6 +35,17 @@ public class BuyerProductController {
 
     @GetMapping("/list")
     public ResultVO list() {
+        // ResultVO resultVo = new ResultVO();
+        // ProductVo productVo = new ProductVo();
+        // ProductInfoVO productInfoVo = new ProductInfoVO();
+        
+        // productVo.setProductInfoVOList(Arrays.asList(productInfoVo()));
+        // resultVo.setData(Arrays.asList(productVo));
+        // resultVo.setCode(0);
+        // resultVo.setMsg("成功");
+        // return resultVo;
+
+
         //1. 查询所有的上架商品
         List<ProductInfo> productInfoList = productService.findUpAll();
 

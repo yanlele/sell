@@ -12,3 +12,4 @@
 - [JPA @Id 和 @GeneratedValue 注解详解](https://blog.csdn.net/coding1994/article/details/79597057)
 - [Springboot-jpa Table 'sell.hibernate_sequence' doesn't exist](https://blog.csdn.net/Black_Tshirt/article/details/80170950)
 - [关于SpringDataJpa中findOne()方法报错问题](https://blog.csdn.net/lzj4423996/article/details/79437687)
+- [server.context-path无效Deprecated configration property](https://blog.csdn.net/weixin_40797576/article/details/82623346)

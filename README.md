@@ -1,6 +1,9 @@
 # 学习文档
 
 
+### 基础知识
+- 表单验证
+
 ### 经典项目学习
 - [springboot-learning-example](https://github.com/JeffLi1993/springboot-learning-example)
 

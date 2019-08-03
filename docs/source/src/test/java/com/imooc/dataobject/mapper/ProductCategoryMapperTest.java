@@ -9,7 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import javax.swing.plaf.PanelUI;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static org.junit.Assert.*;
@@ -31,6 +33,7 @@ public class ProductCategoryMapperTest {
         Assert.assertEquals(1, result);
     }
 
+    @Test
     public void insertByObject() {
         ProductCategory productCategory = new ProductCategory();
         productCategory.setCategoryName("yanle的测试object");
@@ -39,5 +42,15 @@ public class ProductCategoryMapperTest {
         Assert.assertEquals(1, result);
     }
 
+    @Test
+    public void findByCategoryType() {
+        ProductCategory productCategory = mapper.findByCategoryType(101);
+        Assert.assertNotEquals(null, productCategory);
+    }
 
-}
+    @Test
+    public void findByCategoryName() {
+        List<ProductCategory> result = mapper.findByCategoryName("yanle");
+        Assert.assertNotEquals(0, result);
+    }
+ }

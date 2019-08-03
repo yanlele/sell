@@ -1,5 +1,6 @@
 package com.imooc.dataobject.mapper;
 
+import com.imooc.dataobject.ProductCategory;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Assert;
 import org.junit.Test;
@@ -23,11 +24,20 @@ public class ProductCategoryMapperTest {
     @Test
     public void insertByMap() throws Exception{
         Map<String, Object> map = new HashMap<>();
-        map.put("category_name", "yanle测试mapper");
+        map.put("categoryName", "yanle测试mapper");
         map.put("category_type", 101);
 
         int result = mapper.insertByMap(map);
         Assert.assertEquals(1, result);
-
     }
+
+    public void insertByObject() {
+        ProductCategory productCategory = new ProductCategory();
+        productCategory.setCategoryName("yanle的测试object");
+        productCategory.setCategoryType(102);
+        int result = mapper.insertByObject(productCategory);
+        Assert.assertEquals(1, result);
+    }
+
+
 }

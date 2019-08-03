@@ -70,19 +70,11 @@ public class ProductCategoryMapperTest {
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+    @Test
+    public void DeleteProductCategory() {
+        int result = mapper.deleteProductCategory(102);
+        Assert.assertNotEquals(1, result);
+    }
 
 
  }

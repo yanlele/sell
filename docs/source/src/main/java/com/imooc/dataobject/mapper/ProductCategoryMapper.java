@@ -63,6 +63,14 @@ public interface ProductCategoryMapper {
     @Update("update product_category set category_name = #{categoryName} where category_type = #{categoryType}")
     int updateByCategoryType(@Param("categoryName") String categoryName, @Param("categoryType") Integer categoryType);
 
+    /**
+     * 根据对象跟新
+     * @param productCategory
+     * @return
+     */
     @Update("update product_category set category_name = #{categoryName} where category_type = #{categoryType}")
     int updateByCategoryObject(ProductCategory productCategory);
+
+    @Delete("delete form product_category where category_type = #{categoryType}")
+    int deleteProductCategory(Integer categoryType);
 }

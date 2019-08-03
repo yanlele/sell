@@ -53,4 +53,36 @@ public class ProductCategoryMapperTest {
         List<ProductCategory> result = mapper.findByCategoryName("yanle");
         Assert.assertNotEquals(0, result);
     }
+
+    @Test
+    public void updateByCategoryType() {
+        int result = mapper.updateByCategoryType("yanle", 102);
+        Assert.assertEquals(1, result);
+    }
+
+    @Test
+    public void updateByCategoryObject() {
+        ProductCategory productCategory = new ProductCategory();
+        productCategory.setCategoryName("yanle的测试object111");
+        productCategory.setCategoryType(102);
+        int result = mapper.updateByCategoryObject(productCategory);
+        Assert.assertEquals(1, result);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
  }

@@ -1,10 +1,7 @@
 package com.imooc.dataobject.mapper;
 
 import com.imooc.dataobject.ProductCategory;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Result;
-import org.apache.ibatis.annotations.Results;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,4 +52,17 @@ public interface ProductCategoryMapper {
             @Result(column = "category_type", property = "categoryType")
     })
     List<ProductCategory> findByCategoryName(String categoryName);
+
+    /**
+     * 根据字段更新
+     * 多个参数需要这么传递
+     * @param categoryName
+     * @param categoryType
+     * @return
+     */
+    @Update("update product_category set category_name = #{categoryName} where category_type = #{categoryType}")
+    int updateByCategoryType(@Param("categoryName") String categoryName, @Param("categoryType") Integer categoryType);
+
+    @Update("update product_category set category_name = #{categoryName} where category_type = #{categoryType}")
+    int updateByCategoryObject(ProductCategory productCategory);
 }

@@ -18,6 +18,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ProductInfo findOne(String productId) {
+        // 实际上这样写的原因是因为 findOne 已经被废除了， 这样的写法可以代替findOne
         return repository.findById(productId).get();
     }
 

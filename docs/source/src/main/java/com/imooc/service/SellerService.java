@@ -16,3 +16,4 @@ public interface SellerService {
      */
     SellerInfo findSellerInfoByOpenid(String openid);
 }
+

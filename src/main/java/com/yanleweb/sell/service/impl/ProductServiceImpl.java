@@ -36,4 +36,8 @@ public class ProductServiceImpl implements ProductService {
     public ProductInfo save(ProductInfo productInfo) {
         return repository.save(productInfo);
     }
+
+    // todo 加减库存
+
+    // TODO 上下架
 }

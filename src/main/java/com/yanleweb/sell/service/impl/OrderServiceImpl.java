@@ -1,11 +1,19 @@
 package com.yanleweb.sell.service.impl;
 
 import com.yanleweb.sell.dataobject.OrderDetail;
+import com.yanleweb.sell.dataobject.OrderMaster;
 import com.yanleweb.sell.dataobject.ProductInfo;
 import com.yanleweb.sell.dto.OrderDTO;
+import com.yanleweb.sell.enums.OrderStatusEnum;
+import com.yanleweb.sell.enums.PayStatusEnum;
+import com.yanleweb.sell.enums.ResultEnum;
+import com.yanleweb.sell.exception.SellException;
+import com.yanleweb.sell.repository.OrderDetailRepository;
+import com.yanleweb.sell.repository.OrderMasterRepository;
 import com.yanleweb.sell.service.OrderService;
 import com.yanleweb.sell.utils.KeyUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -23,6 +31,12 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     private ProductServiceImpl productService;
 
+    @Autowired
+    private OrderDetailRepository orderDetailRepository;
+
+    @Autowired
+    private OrderMasterRepository orderMasterRepository;
+
     @Override
     public OrderDTO create(OrderDTO orderDTO) {
         String orderId = KeyUtil.genUniqueKey();
@@ -38,23 +52,33 @@ public class OrderServiceImpl implements OrderService {
 //        orderAmount = productInfoList.stream().map(productInfo -> {
 //            return productInfo.getProductPrice().multiply(new BigDecimal())
 //        })
-
-
         for (OrderDetail orderDetail : orderDTO.getOrderDetailList()) {
             ProductInfo productInfo = productService.findOne(orderDetail.getProductId());
+            if (productInfo == null) {
+                throw new SellException(ResultEnum.PRODUCT_NOT_EXIST);
+            }
+            // 2、通过商品ID 查出商品详情，然后计算出订单总价
+            orderAmount = productInfo.getProductPrice().multiply(new BigDecimal(orderDetail.getProductQuantity())).add(orderAmount);
 
-
+            // 3、订单详情入库
+            orderDetail.setDetailId(KeyUtil.genUniqueKey());
+            orderDetail.setOrderId(orderId);
+            BeanUtils.copyProperties(productInfo, orderDetail);
+            orderDetailRepository.save(orderDetail);
         }
-
-        // 2、通过商品ID 查出商品详情，然后计算出订单总价
-
-        // 3、订单详情入库
-
         // 4、创建订单信息
+        OrderMaster orderMaster = new OrderMaster();
+        orderDTO.setOrderId(orderId);
+        BeanUtils.copyProperties(orderDTO, orderMaster);
+        orderMaster.setOrderAmount(orderAmount);
+        orderMaster.setOrderStatus(OrderStatusEnum.NEW.getCode());
+        orderMaster.setPayStatus(PayStatusEnum.WAIT.getCode());
+        orderMasterRepository.save(orderMaster);
 
-        // 5、扣库存
+        // 5、扣库存 todo
 
-        // 6、发送webSocket信息
+
+        // 6、发送webSocket信息 todo
         return null;
     }
 

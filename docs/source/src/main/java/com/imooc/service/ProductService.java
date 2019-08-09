@@ -29,7 +29,7 @@ public interface ProductService {
     //加库存
     void increaseStock(List<CartDTO> cartDTOList);
 
-    //减库存
+    //减库存OrderServiceImpl
     void decreaseStock(List<CartDTO> cartDTOList);
 
     //上架

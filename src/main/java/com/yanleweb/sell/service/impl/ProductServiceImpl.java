@@ -1,6 +1,7 @@
 package com.yanleweb.sell.service.impl;
 
 import com.yanleweb.sell.dataobject.ProductInfo;
+import com.yanleweb.sell.dto.CartDTO;
 import com.yanleweb.sell.enums.ProductStatusEnum;
 import com.yanleweb.sell.repository.ProductInfoRepository;
 import com.yanleweb.sell.service.ProductService;
@@ -35,6 +36,16 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public ProductInfo save(ProductInfo productInfo) {
         return repository.save(productInfo);
+    }
+
+    @Override
+    public void increaseStock(List<CartDTO> cartDTOList) {
+
+    }
+
+    @Override
+    public void decreaseStock(List<CartDTO> cartDTOList) {
+
     }
 
     // todo 加减库存

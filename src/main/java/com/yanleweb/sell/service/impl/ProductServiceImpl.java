@@ -45,7 +45,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     @Transactional
     public void increaseStock(List<CartDTO> cartDTOList) {
-        for (CartDTO cartDTO: cartDTOList) {
+        for (CartDTO cartDTO : cartDTOList) {
             Optional<ProductInfo> optionalProductInfo = repository.findById(cartDTO.getProductId());
             if (!optionalProductInfo.isPresent()) {
                 throw new SellException(ResultEnum.PRODUCT_NOT_EXIST);
@@ -59,7 +59,19 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public void decreaseStock(List<CartDTO> cartDTOList) {
-
+        for (CartDTO cartDTO : cartDTOList) {
+            Optional<ProductInfo> optionalProductInfo = repository.findById(cartDTO.getProductId());
+            if (!optionalProductInfo.isPresent()) {
+                throw new SellException(ResultEnum.PRODUCT_NOT_EXIST);
+            }
+            ProductInfo productInfo = optionalProductInfo.get();
+            Integer stock = productInfo.getProductStock() - cartDTO.getProductQuantity();
+            if (stock < 0) {
+                throw new SellException(ResultEnum.PRODUCT_STOCK_ERROR);
+            }
+            productInfo.setProductStock(stock);
+            repository.save(productInfo);
+        }
     }
 
     // todo 加减库存

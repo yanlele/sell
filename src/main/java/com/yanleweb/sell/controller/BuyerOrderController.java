@@ -77,5 +77,13 @@ public class BuyerOrderController {
         return ResultVOUtil.success(orderDTOPage.getContent());
     }
 
-
+    // 订单详情
+    @GetMapping("/detail")
+    public ResultVO<OrderDTO> detail(
+            @RequestParam("openid") String openid,
+            @RequestParam("orderid") String orderId
+    ) {
+        OrderDTO orderDTO = buyerService.findOrderOne(openid, orderId);
+        return ResultVOUtil.success(orderDTO);
+    }
 }

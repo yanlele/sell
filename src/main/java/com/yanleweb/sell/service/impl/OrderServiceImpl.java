@@ -1,5 +1,6 @@
 package com.yanleweb.sell.service.impl;
 
+import com.yanleweb.sell.converter.OrderMaster2OrderDTOConverter;
 import com.yanleweb.sell.dataobject.OrderDetail;
 import com.yanleweb.sell.dataobject.OrderMaster;
 import com.yanleweb.sell.dataobject.ProductInfo;
@@ -17,6 +18,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -112,9 +114,8 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public Page<OrderDTO> findList(String buyerOpenid, Pageable pageable) {
         Page<OrderMaster> orderMasterPage = orderMasterRepository.findByBuyerOpenid(buyerOpenid, pageable);
-//        List<OrderDTO> orderDTOList =
-
-        return null;
+        List<OrderDTO> orderDTOList = OrderMaster2OrderDTOConverter.convert(orderMasterPage.getContent());
+        return new PageImpl<OrderDTO>(orderDTOList, pageable, orderMasterPage.getTotalElements());
     }
 
     @Override

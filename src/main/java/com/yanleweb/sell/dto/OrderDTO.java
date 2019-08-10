@@ -1,5 +1,6 @@
 package com.yanleweb.sell.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.yanleweb.sell.dataobject.OrderDetail;
 import com.yanleweb.sell.utils.serializer.Date2LongSerializer;
@@ -11,6 +12,7 @@ import java.util.List;
 
 
 @Data
+//@JsonInclude(JsonInclude.Include.NON_NULL)
 public class OrderDTO {
 
     private String orderId;

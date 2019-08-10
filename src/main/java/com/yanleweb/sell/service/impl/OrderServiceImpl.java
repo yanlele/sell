@@ -3,6 +3,7 @@ package com.yanleweb.sell.service.impl;
 import com.yanleweb.sell.dataobject.OrderDetail;
 import com.yanleweb.sell.dataobject.OrderMaster;
 import com.yanleweb.sell.dataobject.ProductInfo;
+import com.yanleweb.sell.dto.CartDTO;
 import com.yanleweb.sell.dto.OrderDTO;
 import com.yanleweb.sell.enums.OrderStatusEnum;
 import com.yanleweb.sell.enums.PayStatusEnum;
@@ -21,7 +22,6 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -75,12 +75,17 @@ public class OrderServiceImpl implements OrderService {
         orderMaster.setPayStatus(PayStatusEnum.WAIT.getCode());
         orderMasterRepository.save(orderMaster);
 
-        // 5、扣库存 todo
-
-
+        // 5、扣库存
+        List<CartDTO> cartDTOList = orderDTO
+                .getOrderDetailList()
+                .stream()
+                .map(e->new CartDTO(e.getProductId(), e.getProductQuantity()))
+                .collect(Collectors.toList());
+        productService.decreaseStock(cartDTOList);
 
         // 6、发送webSocket信息 todo
-        return null;
+
+        return orderDTO;
     }
 
     @Override

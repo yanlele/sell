@@ -42,6 +42,8 @@ public class ProductServiceImpl implements ProductService {
         return repository.save(productInfo);
     }
 
+
+    // todo 加减库存
     @Override
     @Transactional
     public void increaseStock(List<CartDTO> cartDTOList) {
@@ -58,6 +60,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    @Transactional
     public void decreaseStock(List<CartDTO> cartDTOList) {
         for (CartDTO cartDTO : cartDTOList) {
             Optional<ProductInfo> optionalProductInfo = repository.findById(cartDTO.getProductId());
@@ -73,8 +76,6 @@ public class ProductServiceImpl implements ProductService {
             repository.save(productInfo);
         }
     }
-
-    // todo 加减库存
 
     // TODO 上下架
 }

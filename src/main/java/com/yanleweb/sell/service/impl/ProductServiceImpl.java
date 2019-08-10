@@ -54,7 +54,7 @@ public class ProductServiceImpl implements ProductService {
             }
             ProductInfo productInfo = optionalProductInfo.get();
             Integer stock = productInfo.getProductStock() + cartDTO.getProductQuantity();
-            productInfo.setCategoryType(stock);
+            productInfo.setProductStock(stock);
             repository.save(productInfo);
         }
     }

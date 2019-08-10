@@ -1,6 +1,7 @@
 package com.yanleweb.sell.service.impl;
 
 import com.yanleweb.sell.dataobject.ProductInfo;
+import com.yanleweb.sell.dto.CartDTO;
 import com.yanleweb.sell.enums.ProductStatusEnum;
 import org.junit.Assert;
 import org.junit.Test;
@@ -12,6 +13,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 @RunWith(SpringRunner.class)
@@ -54,5 +56,21 @@ public class ProductServiceImplTest {
 
         ProductInfo result = productService.save(productInfo);
         Assert.assertNotNull(result);
+    }
+
+    @Test
+    public void increaseStock() throws Exception {
+        List<CartDTO> cartDTOList = new ArrayList<>();
+        cartDTOList.add(new CartDTO("111111", 10));
+        cartDTOList.add(new CartDTO("123421", 10));
+        productService.increaseStock(cartDTOList);
+    }
+
+    @Test
+    public void decreaseStock() throws Exception {
+        List<CartDTO> cartDTOList = new ArrayList<>();
+        cartDTOList.add(new CartDTO("111111", 10));
+        cartDTOList.add(new CartDTO("123421", 10));
+        productService.decreaseStock(cartDTOList);
     }
 }

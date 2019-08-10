@@ -3,6 +3,8 @@ package com.yanleweb.sell.service.impl;
 import com.yanleweb.sell.dataobject.ProductInfo;
 import com.yanleweb.sell.dto.CartDTO;
 import com.yanleweb.sell.enums.ProductStatusEnum;
+import com.yanleweb.sell.enums.ResultEnum;
+import com.yanleweb.sell.exception.SellException;
 import com.yanleweb.sell.repository.ProductInfoRepository;
 import com.yanleweb.sell.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +12,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -39,8 +43,18 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    @Transactional
     public void increaseStock(List<CartDTO> cartDTOList) {
-
+        for (CartDTO cartDTO: cartDTOList) {
+            Optional<ProductInfo> optionalProductInfo = repository.findById(cartDTO.getProductId());
+            if (!optionalProductInfo.isPresent()) {
+                throw new SellException(ResultEnum.PRODUCT_NOT_EXIST);
+            }
+            ProductInfo productInfo = optionalProductInfo.get();
+            Integer stock = productInfo.getProductStock() + cartDTO.getProductQuantity();
+            productInfo.setCategoryType(stock);
+            repository.save(productInfo);
+        }
     }
 
     @Override

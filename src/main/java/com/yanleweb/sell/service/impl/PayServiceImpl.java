@@ -35,7 +35,9 @@ public class PayServiceImpl implements PayService {
         payRequest.setPayTypeEnum(BestPayTypeEnum.WXPAY_H5);
         log.info("【微信支付】发起支付, request={}", JsonUtil.toJson(payRequest));
 
-        return null;
+        PayResponse payResponse = bestPayService.pay(payRequest);
+        log.info("【微信支付】发起支付, response={}", JsonUtil.toJson(payResponse));
+        return payResponse;
     }
 
     @Override

@@ -13,6 +13,7 @@ import com.yanleweb.sell.exception.SellException;
 import com.yanleweb.sell.repository.OrderDetailRepository;
 import com.yanleweb.sell.repository.OrderMasterRepository;
 import com.yanleweb.sell.service.OrderService;
+import com.yanleweb.sell.service.PayService;
 import com.yanleweb.sell.utils.KeyUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
@@ -41,6 +42,9 @@ public class OrderServiceImpl implements OrderService {
 
     @Autowired
     private OrderMasterRepository orderMasterRepository;
+
+    @Autowired
+    private PayService payService;
 
     @Override
     public OrderDTO create(OrderDTO orderDTO) {
@@ -150,6 +154,9 @@ public class OrderServiceImpl implements OrderService {
         productService.increaseStock(cartDTOList);
 
         // 如果已经支付， 需要退款 todo
+        if (orderDTO.getPayStatus().equals(PayStatusEnum.SUCCESS.getCode())) {
+            payService.refund(orderDTO);
+        }
 
         return orderDTO;
     }

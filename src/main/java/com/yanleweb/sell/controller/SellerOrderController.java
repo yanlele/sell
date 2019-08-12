@@ -3,6 +3,7 @@ package com.yanleweb.sell.controller;
 
 import com.yanleweb.sell.dto.OrderDTO;
 import com.yanleweb.sell.enums.ResultEnum;
+import com.yanleweb.sell.exception.SellException;
 import com.yanleweb.sell.service.OrderService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -76,5 +77,25 @@ public class SellerOrderController {
 
         map.put("orderDTO", orderDTO);
         return new ModelAndView("order/detail", map);
+    }
+
+    @GetMapping("/finish")
+    public ModelAndView finished(
+            @RequestParam("orderId") String orderId,
+            Map<String, Object> map
+    ) {
+        try {
+            OrderDTO orderDTO = orderService.findOne(orderId);
+            orderService.finish(orderDTO);
+        } catch (SellException e) {
+            log.error("【卖家端完结订单】发生异常{}", e);
+            map.put("msg", e.getMessage());
+            map.put("url", "/sell/seller/order/list");
+            return new ModelAndView("common/error", map);
+        }
+
+        map.put("msg", ResultEnum.ORDER_FINISH_SUCCESS.getCode());
+        map.put("url", "/sell/seller/order/list");
+        return new ModelAndView("common/success", map);
     }
 }

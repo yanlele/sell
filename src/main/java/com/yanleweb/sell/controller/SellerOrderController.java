@@ -60,7 +60,7 @@ public class SellerOrderController {
     }
 
     @GetMapping("/detail")
-    public ModelAndView ¬(
+    public ModelAndView detail(
             @RequestParam("orderId") String orderId,
             Map<String, Object> map
     ) {

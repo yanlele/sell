@@ -107,7 +107,8 @@ public class SellerProductController {
             return new ModelAndView("common/error", map);
         }
 
-
+        map.put("url", "/sell/seller/product/list");
+        return new ModelAndView("common/success", map);
     }
 
 }

@@ -1,7 +1,9 @@
 package com.yanleweb.sell.dataobject;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.yanleweb.sell.enums.ProductStatusEnum;
+import com.yanleweb.sell.utils.EnumUtil;
 import lombok.Data;
 import org.hibernate.annotations.DynamicUpdate;
 
@@ -30,5 +32,8 @@ public class ProductInfo {
 
     private Integer categoryType;
 
-
+    @JsonIgnore
+    public ProductStatusEnum getProductStatusEnum() {
+        return EnumUtil.getByCode(productStatus, ProductStatusEnum.class);
+    }
 }

@@ -78,4 +78,14 @@ public class ProductServiceImpl implements ProductService {
     }
 
     // TODO 上下架
+
+    @Override
+    public ProductInfo onSale(String productId) {
+        return null;
+    }
+
+    @Override
+    public ProductInfo offSale(String productId) {
+        return null;
+    }
 }

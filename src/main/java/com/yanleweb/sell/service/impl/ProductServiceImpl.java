@@ -81,7 +81,16 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ProductInfo onSale(String productId) {
-        return null;
+        Optional<ProductInfo> optionalProductInfo = repository.findById(productId);
+        if (!optionalProductInfo.isPresent()) {
+            throw new SellException(ResultEnum.PRODUCT_NOT_EXIST);
+        }
+        ProductInfo productInfo = optionalProductInfo.get();
+        if (productInfo.getProductStatus().equals(ProductStatusEnum.UP.getCode())) {
+            throw new SellException(ResultEnum.PRODUCT_STATUS_ERROR);
+        }
+        productInfo.setProductStatus(ProductStatusEnum.UP.getCode());
+        return repository.save(productInfo);
     }
 
     @Override

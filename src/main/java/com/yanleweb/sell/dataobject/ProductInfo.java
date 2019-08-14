@@ -29,4 +29,6 @@ public class ProductInfo {
     private Integer productStatus = ProductStatusEnum.UP.getCode();
 
     private Integer categoryType;
+
+
 }

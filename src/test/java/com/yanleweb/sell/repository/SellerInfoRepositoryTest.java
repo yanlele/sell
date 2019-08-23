@@ -25,5 +25,7 @@ public class SellerInfoRepositoryTest {
 
     @Test
     public void findByOpenid() {
+        SellerInfo result = repository.findByOpenid("abcd");
+        Assert.assertEquals("abcd", result.getOpenid());
     }
 }

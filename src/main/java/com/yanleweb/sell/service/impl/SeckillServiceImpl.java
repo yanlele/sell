@@ -1,6 +1,7 @@
 package com.yanleweb.sell.service.impl;
 
 import com.yanleweb.sell.exception.SellException;
+import com.yanleweb.sell.service.RedisLock;
 import com.yanleweb.sell.service.SeckillService;
 import com.yanleweb.sell.utils.KeyUtil;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,10 +1,8 @@
-package com.imooc.handler;
+package com.yanleweb.sell.exception;
 
-import com.imooc.VO.ResultVO;
-import com.imooc.config.ProjectUrlConfig;
-import com.imooc.exception.SellException;
-import com.imooc.exception.SellerAuthorizeException;
-import com.imooc.utils.ResultVOUtil;
+import com.yanleweb.sell.VO.ResultVO;
+import com.yanleweb.sell.config.ProjectUrlConfig;
+import com.yanleweb.sell.utils.ResultVOUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -13,30 +11,24 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.ModelAndView;
 
-/**
- * Created by 廖师兄
- * 2017-07-30 17:44
- */
 @ControllerAdvice
 public class SellExceptionHandler {
-
     @Autowired
     private ProjectUrlConfig projectUrlConfig;
 
-    //拦截登录异常
-    //http://sell.natapp4.cc/sell/wechat/qrAuthorize?returnUrl=http://sell.natapp4.cc/sell/seller/login
+    // 异常拦截
     @ExceptionHandler(value = SellerAuthorizeException.class)
     @ResponseStatus(HttpStatus.FORBIDDEN)
     public ModelAndView handlerAuthorizeException() {
         return new ModelAndView("redirect:"
-        .concat(projectUrlConfig.getWechatOpenAuthorize())
-        .concat("/sell/wechat/qrAuthorize")
-        .concat("?returnUrl=")
-        .concat(projectUrlConfig.getSell())
-        .concat("/sell/seller/login"));
+                .concat(projectUrlConfig.getWechatOpenAuthorize())
+                .concat("/sell/wechat/qrAuthorize")
+                .concat("?returnUrl=")
+                .concat(projectUrlConfig.getSell())
+                .concat("/sell/seller/login")
+        );
     }
 
-    // 比如有一个商品异常
     @ExceptionHandler(value = SellException.class)
     @ResponseBody
     public ResultVO handleSellerException(SellException e) {
@@ -46,6 +38,5 @@ public class SellExceptionHandler {
     @ExceptionHandler(value = RuntimeException.class)
     @ResponseStatus(HttpStatus.FORBIDDEN)
     public void handleResponseBankException() {
-        // 修改httpStatus
     }
-}]
+}

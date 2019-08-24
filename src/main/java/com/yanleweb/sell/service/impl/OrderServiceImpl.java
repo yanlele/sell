@@ -14,6 +14,7 @@ import com.yanleweb.sell.repository.OrderDetailRepository;
 import com.yanleweb.sell.repository.OrderMasterRepository;
 import com.yanleweb.sell.service.OrderService;
 import com.yanleweb.sell.service.PayService;
+import com.yanleweb.sell.service.webSock.WebSocket;
 import com.yanleweb.sell.utils.KeyUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
@@ -45,6 +46,9 @@ public class OrderServiceImpl implements OrderService {
 
     @Autowired
     private PayService payService;
+
+    @Autowired
+    private WebSocket webSocket;
 
     @Override
     public OrderDTO create(OrderDTO orderDTO) {
@@ -93,6 +97,7 @@ public class OrderServiceImpl implements OrderService {
         productService.decreaseStock(cartDTOList);
 
         // 6、发送webSocket信息 todo
+        webSocket.sendMessage(orderDTO.getOrderId());
 
         return orderDTO;
     }

@@ -2,10 +2,12 @@ package com.yanleweb.sell.dataobject.mapper;
 
 import com.yanleweb.sell.dataobject.ProductCategory;
 import org.apache.ibatis.annotations.*;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Map;
 
+@Component(value = "productCategoryMapper")
 public interface ProductCategoryMapper {
 
     /**
@@ -72,4 +74,6 @@ public interface ProductCategoryMapper {
 
     @Delete("delete form product_category where category_type = #{categoryType}")
     int deleteProductCategory(Integer categoryType);
+
+    ProductCategory selectByCategoryType(Integer categoryType);
 }

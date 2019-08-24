@@ -1,6 +1,7 @@
-package com.yanleweb.sell.config;
+package com.yanleweb.sell.controller;
 
 
+import com.yanleweb.sell.config.ProjectUrlConfig;
 import com.yanleweb.sell.constant.CookieConstant;
 import com.yanleweb.sell.constant.RedisConstant;
 import com.yanleweb.sell.dataobject.SellerInfo;

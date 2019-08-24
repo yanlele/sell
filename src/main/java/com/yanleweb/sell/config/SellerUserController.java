@@ -50,6 +50,6 @@ public class SellerUserController {
 
         redisTemplate.opsForValue().set(String.format(RedisConstant.TOKEN_PREFIX, token), openid, expire, TimeUnit.SECONDS);
 
-        // 谁知token 到 cookie
+        // 设置token 到 cookie
     }
 }

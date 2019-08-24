@@ -5,10 +5,13 @@ import com.yanleweb.sell.service.RedisLock;
 import com.yanleweb.sell.service.SeckillService;
 import com.yanleweb.sell.utils.KeyUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.Map;
 
+
+@Service
 public class SeckillServiceImpl implements SeckillService {
     private static final int TIMEOUT = 10 * 1000;
 
